@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: weather-proxy
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: WEATHER_API_KEY
+        scope: build
+        value: ${WEATHER_API_KEY}

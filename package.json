@@ -1,0 +1,28 @@
+{
+  "name": "health-monitor",
+  "version": "1.0.0",
+  "description": "Web application for monitoring and analyzing health indicators",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "http-server . -p 8000 -c-1",
+    "build": "echo 'Build complete'",
+    "lint": "eslint src/",
+    "format": "prettier --write src/"
+  },
+  "keywords": [
+    "health",
+    "monitoring",
+    "analytics",
+    "fitness",
+    "wellness"
+  ],
+  "author": "Novozhiblov Vasiliy Alekseyevich",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "http-server": "^14.1.1"
+  }
+}
+

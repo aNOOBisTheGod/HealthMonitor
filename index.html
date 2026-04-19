@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Web application for monitoring and analyzing health indicators">
+    <title>Health Monitor - Мониторинг и анализ показателей здоровья</title>
+    <link rel="stylesheet" href="src/styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <div class="header__container">
+                <div class="logo">
+                    <svg class="logo__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M2 12h20M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"></path>
+                    </svg>
+                    <span class="logo__text">Health Monitor</span>
+                </div>
+        <nav class="nav" id="mainNav">
+                    <button class="nav__link nav__link--active" data-page="survey">Опросы</button>
+                    <button class="nav__link" data-page="analysis">Анализ</button>
+                    <button class="nav__link" data-page="metrics">История</button>
+                    <button class="nav__link" data-page="settings">Параметры</button>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" title="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <button class="theme-toggle" id="themeToggle" title="Переключить тему">
+                    <svg class="theme-toggle__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Survey Page (now main) -->
+            <section class="page__section page__section--active" id="survey-page">
+                <div class="container">
+                    <h1 class="page__title">Ежедневный опрос о болевых ощущениях</h1>
+                    
+                    <div class="survey-container">
+                        <div class="survey-form">
+                            <h2 class="survey-form__title">Выберите тип боли</h2>
+                            <div id="painTypeSelector" class="pain-type-selector">
+                                <!-- Кнопки типов боли будут добавлены JS -->
+                            </div>
+
+                            <form id="surveyForm" class="form survey-form__detailed" style="display: none;">
+                                <div class="survey-form__header">
+                                    <h2 id="selectedPainTitle"></h2>
+                                    <button type="button" class="survey-form__back-btn" id="backToTypeSelect">← Назад</button>
+                                </div>
+                                <div id="surveyQuestionsContainer" class="survey-questions">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Metrics History Page -->
+            <section class="page__section" id="metrics-page">
+                <div class="container">
+                    <h1 class="page__title">История опросов</h1>
+                    
+                    <div class="metrics-container">
+                        <div class="metrics-list">
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <button id="prevMonth" class="calendar-nav-btn">←</button>
+                                    <h3 id="calendarMonthYear"></h3>
+                                    <button id="nextMonth" class="calendar-nav-btn">→</button>
+                                </div>
+                                
+                                <table class="calendar-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Пн</th>
+                                            <th>Вт</th>
+                                            <th>Ср</th>
+                                            <th>Чт</th>
+                                            <th>Пт</th>
+                                            <th>Сб</th>
+                                            <th>Вс</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="calendarBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="selectedDateSubmissions" style="display: none;" class="selected-date-submissions">
+                            <div class="date-submissions-header">
+                                <h3 id="selectedDateTitle"></h3>
+                                <button id="closeDateView" class="close-btn">✕</button>
+                            </div>
+                            <div id="submissionsContainer" class="submissions-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Page -->
+            <section class="page__section" id="analysis-page">
+                <div class="container">
+                    <h1 class="page__title">Статистика</h1>
+                    
+                    <div class="analysis-controls">
+                        <label for="painTypeFilter" class="analysis-label">Выберите тип боли:</label>
+                        <select id="painTypeFilter" class="analysis-select">
+                            <option value="">Все типы</option>
+                        </select>
+                    </div>
+
+                    <div class="analysis-grid" id="analysisContainer">
+                        <!-- Графики и статистика будут добавлены JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section class="page__section" id="settings-page">
+                <div class="container">
+                    <h1 class="page__title">Параметры</h1>
+                    
+                    <div class="settings-container">
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Оформление</h2>
+                            <div class="settings-option">
+                                <label class="form__label">Тема</label>
+                                <div class="theme-selector">
+                                    <button type="button" class="theme-btn theme-btn--light" id="themeLight" data-theme="light">
+                                        ☀️ Светлая
+                                    </button>
+                                    <button type="button" class="theme-btn theme-btn--dark" id="themeDark" data-theme="dark">
+                                        🌙 Тёмная
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Геолокация для погоды</h2>
+                            <p class="settings-section__description">Выберите ваш город для получения данных о погоде</p>
+                            <div class="form__group">
+                                <label class="form__label" for="citySelect">Город</label>
+                                <select id="citySelect" class="form__input">
+                                    <option value="">Автоматическое определение</option>
+                                    <option value="55.7558,37.6173">Москва</option>
+                                    <option value="59.9311,30.3609">Санкт-Петербург</option>
+                                    <option value="54.7034,20.5109">Калининград</option>
+                                    <option value="56.2965,43.9676">Нижний Новгород</option>
+                                    <option value="51.5272,46.0153">Пенза</option>
+                                    <option value="54.1961,37.6212">Тула</option>
+                                    <option value="52.2977,104.2964">Иркутск</option>
+                                    <option value="55.1644,61.4368">Екатеринбург</option>
+                                    <option value="53.3475,83.7741">Новосибирск</option>
+                                    <option value="61.5240,105.2874">Якутск</option>
+                                </select>
+                                <button id="saveCityBtn" class="form__button">Сохранить город</button>
+                            </div>
+                            <p id="geoStatus" style="font-size: 0.9rem; color: #8b949e; margin-top: 0.5rem;"></p>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Профиль</h2>
+                            <form id="profileForm" class="form">
+                                <div class="form__group">
+                                    <label class="form__label" for="userName">Имя</label>
+                                    <input type="text" id="userName" class="form__input" placeholder="Ваше имя">
+                                </div>
+                                <button type="submit" class="form__button">Сохранить</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Экспорт данных</h2>
+                            <p class="settings-section__description">Загрузите или импортируйте свои данные</p>
+                            <div class="settings-buttons">
+                                <button id="exportBtn" class="form__button form__button--secondary">📥 Загрузить JSON</button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Уведомления</h2>
+                            <div class="settings-option">
+                                <label class="toggle-label">
+                                    <input type="checkbox" id="dailyReminderToggle" class="toggle-input" checked>
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label__text">Ежедневное напоминание</span>
+                                </label>
+                            </div>
+                            <p class="settings-section__description" style="margin-top: var(--spacing-md);">Получайте напоминание о прохождении ежедневного опроса</p>
+                        </div>
+
+                        <div class="settings-section">
+                            <h2 class="settings-section__title">Управление данными</h2>
+                            <div class="settings-buttons">
+                                <button id="importBtn" class="form__button form__button--secondary">📤 Импортировать JSON</button>
+                                <input type="file" id="importFile" style="display: none;" accept=".json">
+                                <button id="clearBtn" class="form__button form__button--danger">🗑️ Очистить все данные</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="footer__text">Health Monitor © 2026 | Веб-приложение для мониторинга здоровья</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+      window.WEATHER_PROXY_URL = 'https://functions.yandexcloud.net/d4eb4kmtve099sp2vma2';
+    </script>
+    <script type="module" src="src/js/index.js"></script>
+</body>
+</html>
